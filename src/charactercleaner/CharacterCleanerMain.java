@@ -12,6 +12,7 @@ public class CharacterCleanerMain extends BasicGame {
 
 	public static final int GAME_WIDTH = 480;
 	public static final int GAME_HEIGHT = 640;
+	private Brick[] bricks;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
@@ -20,13 +21,25 @@ public class CharacterCleanerMain extends BasicGame {
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		
+		for (Brick brick : bricks)
+		{
+			brick.render();
+		}
 		
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-
+		bricks = new Brick[30];
+		for (int i=0 ; i<30 ; i++)
+		{
+			if (i<10)
+				bricks[i] = new Brick(24+48*i,GAME_HEIGHT-24);
+			else if (i<20)
+				bricks[i] = new Brick(24+48*(i-10),GAME_HEIGHT-72);
+			else
+				bricks[i] = new Brick(24+48*(i-20),GAME_HEIGHT-120);
+		}
 		
 	}
 
