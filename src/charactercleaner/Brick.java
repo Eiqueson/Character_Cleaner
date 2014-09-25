@@ -1,13 +1,17 @@
 package charactercleaner;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Brick {
 
+public class Brick implements Entity{
+
+	public static final int BRICK_WIDTH = 48;
+	public static final int BRICK_HEIGHT = 48;
 	private float x;
-	  private float y;
-	  private Image image;
+	private float y;
+	private Image image;
 	
 	public Brick(float x, float y) throws SlickException {
 	    this.x = x;
@@ -16,7 +20,13 @@ public class Brick {
 	  }
 	
 	public void render() {
-		image.draw(x - 24, y - 24);
+		image.draw(x - BRICK_WIDTH/2, y - BRICK_HEIGHT/2);
+		
+	}
+
+	@Override
+	public void update() {
+		
 		
 	}
 
