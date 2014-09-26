@@ -1,5 +1,6 @@
 package charactercleaner;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.newdawn.slick.AppGameContainer;
@@ -16,12 +17,13 @@ public class CharacterCleanerMain extends BasicGame {
 	public static final int GAME_HEIGHT = 640;
 	public static final float SPEED = (float) 2;
 	private Brick[] bricks;
-	private Character characters;
-	private LinkedList<Entity> entities;
+	private Character[] characters;
+	private Character character;
+	private ArrayList<Entity> entities;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
-		entities = new LinkedList<Entity>();
+		entities = new ArrayList<Entity>();
 		
 	}
 
@@ -55,8 +57,8 @@ public class CharacterCleanerMain extends BasicGame {
 					entities.add(bricks[i]);
 				}
 		}
-		characters = new Character(264, 24);
-		entities.add(characters);
+		character = new Character(264, 24);
+		entities.add(character);
 	}
 
 	@Override
