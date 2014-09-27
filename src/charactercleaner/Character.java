@@ -9,18 +9,16 @@ public class Character implements Entity{
 	
 	public static final int CHARACTER_WIDTH = 48;
 	public static final int CHARACTER_HEIGHT = 48;
-	private String CHARACTER_LIST = "ABCDEFGHIJKLMNOPQRSTUV";
-	private int N = CHARACTER_LIST.length();
 	private float x;
 	private float y;
 	private Image image;
+	private float speed;
 	
-	Random randomcharacter = new Random();
-	
-	public Character(float x, float y) throws SlickException {
+	public Character(float x, float y, char imgname, float speed) throws SlickException {
 		this.x = x;
 		this.y = y;
-		image = new Image("C:\\Users/Eiqueson/workspace/CharacterCleaner/object/"+(CHARACTER_LIST.charAt(randomcharacter.nextInt(N)))+".png");
+		this.speed = speed;
+		image = new Image("C:\\Users/Eiqueson/workspace/CharacterCleaner/object/"+imgname+".png");
 	}
 
 	public void render() {
@@ -29,7 +27,7 @@ public class Character implements Entity{
 	}
 
 	public void update() {
-		y += CharacterCleanerMain.SPEED;
+		y += speed;
 		
 	}
 

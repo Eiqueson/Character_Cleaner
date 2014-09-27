@@ -1,12 +1,13 @@
 package charactercleaner;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Random;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import charactercleaner.CharacterCleanerMain;
@@ -15,11 +16,20 @@ public class CharacterCleanerMain extends BasicGame {
 
 	public static final int GAME_WIDTH = 480;
 	public static final int GAME_HEIGHT = 640;
-	public static final float SPEED = (float) 2;
+	//public static final float SPEED = (float) 2;
+	public static final int BRICK_COUNT = 30;
+	public static final int CHARACTER_COUNT = 30;
+	
+	private String CHARACTER_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
-	private Character character;
 	private ArrayList<Entity> entities;
+	
+	Random row = new Random();
+	Random randomcharacter = new Random();
+	Random speed = new Random();
+	private int score = 0;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
@@ -33,20 +43,36 @@ public class CharacterCleanerMain extends BasicGame {
 		{
 			entity.render();
 		}
+		g.drawString("Score: " + score , 400, 0);
 		
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		bricks = new Brick[30];
-		for (int i=0 ; i<30 ; i++)
+		initBrickWall();
+		initFallingCharacter();
+	}
+
+	private void initFallingCharacter() throws SlickException {
+		characters = new Character[CHARACTER_COUNT];
+		for (int j=0 ; j<CHARACTER_COUNT ; j++)
 		{
-			if (i<10)
+			characters[j] = new Character((row.nextInt(10)*Character.CHARACTER_WIDTH)+Character.CHARACTER_WIDTH/2, 
+						Character.CHARACTER_HEIGHT/2 - 100*j, CHARACTER_LIST.charAt(randomcharacter.nextInt(N)), speed.nextInt(4)+1);
+			entities.add(characters[j]);
+		}
+	}
+
+	private void initBrickWall() throws SlickException {
+		bricks = new Brick[BRICK_COUNT];
+		for (int i=0 ; i<BRICK_COUNT ; i++)
+		{
+			if (i<BRICK_COUNT/3)
 				{
 					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*i,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
 					entities.add(bricks[i]);
 				}
-			else if (i<20)
+			else if (i<BRICK_COUNT*2/3)
 				{
 					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-10),GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
 					entities.add(bricks[i]);
@@ -57,8 +83,6 @@ public class CharacterCleanerMain extends BasicGame {
 					entities.add(bricks[i]);
 				}
 		}
-		character = new Character(264, 24);
-		entities.add(character);
 	}
 
 	@Override
@@ -67,7 +91,6 @@ public class CharacterCleanerMain extends BasicGame {
 		{
 			entity.update();
 		}
-		
 		
 	}
 	
