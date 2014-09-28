@@ -24,7 +24,8 @@ public class CharacterCleanerMain extends BasicGame {
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
-	private ArrayList<Entity> entities;
+	private ArrayList<BrickEntity> entities1;
+	private ArrayList<CharacterEntity> entities2;
 	
 	Random row = new Random();
 	Random randomcharacter = new Random();
@@ -33,15 +34,20 @@ public class CharacterCleanerMain extends BasicGame {
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
-		entities = new ArrayList<Entity>();
+		entities1 = new ArrayList<BrickEntity>();
+		entities2 = new ArrayList<CharacterEntity>();
 		
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		for (Entity entity : entities)
+		for (BrickEntity entity1 : entities1)
 		{
-			entity.render();
+			entity1.render();
+		}
+		for (CharacterEntity entity2 : entities2)
+		{
+			entity2.render();
 		}
 		g.drawString("Score: " + score , 400, 0);
 		
@@ -59,7 +65,7 @@ public class CharacterCleanerMain extends BasicGame {
 		{
 			characters[j] = new Character((row.nextInt(10)*Character.CHARACTER_WIDTH)+Character.CHARACTER_WIDTH/2, 
 						Character.CHARACTER_HEIGHT/2 - 100*j, CHARACTER_LIST.charAt(randomcharacter.nextInt(N)), speed.nextInt(4)+1);
-			entities.add(characters[j]);
+			entities2.add(characters[j]);
 		}
 	}
 
@@ -70,26 +76,30 @@ public class CharacterCleanerMain extends BasicGame {
 			if (i<BRICK_COUNT/3)
 				{
 					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*i,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
-					entities.add(bricks[i]);
+					entities1.add(bricks[i]);
 				}
 			else if (i<BRICK_COUNT*2/3)
 				{
 					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-10),GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
-					entities.add(bricks[i]);
+					entities1.add(bricks[i]);
 				}
 			else
 				{
 					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-20),GAME_HEIGHT-Brick.BRICK_HEIGHT*5/2);
-					entities.add(bricks[i]);
+					entities1.add(bricks[i]);
 				}
 		}
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		for (Entity entity : entities)
+		for (BrickEntity entity1 : entities1)
 		{
-			entity.update();
+			entity1.update();
+		}
+		for (CharacterEntity entity2 : entities2)
+		{
+			entity2.update();
 		}
 		
 	}

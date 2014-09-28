@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 
-public class Brick implements Entity{
+public class Brick implements BrickEntity{
 
 	public static final int BRICK_WIDTH = 48;
 	public static final int BRICK_HEIGHT = 48;

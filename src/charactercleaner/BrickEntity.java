@@ -1,7 +1,7 @@
 package charactercleaner;
 
 
-public interface Entity {
+public interface BrickEntity {
 	void render();
 	void update();
 }

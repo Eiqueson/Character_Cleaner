@@ -5,7 +5,7 @@ import java.util.Random;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Character implements Entity{
+public class Character implements CharacterEntity{
 	
 	public static final int CHARACTER_WIDTH = 48;
 	public static final int CHARACTER_HEIGHT = 48;
