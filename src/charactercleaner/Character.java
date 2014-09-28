@@ -30,5 +30,13 @@ public class Character implements CharacterEntity{
 		y += speed;
 		
 	}
+	
+	public boolean isPress() {
+	    return CharacterCleanerMain.isCharPress;
+	  }
+	 
+	  public boolean isDeletable() {
+	    return isPress();
+	  }
 
 }

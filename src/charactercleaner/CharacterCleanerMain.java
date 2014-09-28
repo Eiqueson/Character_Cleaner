@@ -1,6 +1,7 @@
 package charactercleaner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import org.newdawn.slick.AppGameContainer;
@@ -31,6 +32,7 @@ public class CharacterCleanerMain extends BasicGame {
 	Random randomcharacter = new Random();
 	Random speed = new Random();
 	private int score = 0;
+	static boolean isCharPress = false;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
@@ -102,7 +104,24 @@ public class CharacterCleanerMain extends BasicGame {
 			entity2.update();
 		}
 		
+		Iterator<CharacterEntity> iterator = entities2.iterator();
+	    while (iterator.hasNext()) {
+	      CharacterEntity entity2 = iterator.next();
+	      entity2.update();
+	      if (entity2.isDeletable()) {
+	        iterator.remove();
+	        isCharPress = false;
+	      }
+	    }
+		
 	}
+	
+	@Override
+	  public void keyPressed(int key, char c) {
+	    if (key == Input.KEY_SPACE) {
+	    	isCharPress = true;
+	    }
+	  }
 	
 	public static void main(String[] args) {
 	    try {
