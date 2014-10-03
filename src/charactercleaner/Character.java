@@ -13,11 +13,13 @@ public class Character implements CharacterEntity{
 	private float y;
 	private Image image;
 	private float speed;
+	private char imgname;
 	
 	public Character(float x, float y, char imgname, float speed) throws SlickException {
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
+		this.imgname = imgname;
 		image = new Image("C:\\Users/Eiqueson/workspace/CharacterCleaner/object/"+imgname+".png");
 	}
 

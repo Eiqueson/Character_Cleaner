@@ -19,12 +19,13 @@ public class CharacterCleanerMain extends BasicGame {
 	public static final int GAME_HEIGHT = 640;
 	//public static final float SPEED = (float) 2;
 	public static final int BRICK_COUNT = 30;
-	public static final int CHARACTER_COUNT = 30;
+	public static final int CHARACTER_COUNT = 100;
 	
 	private String CHARACTER_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
+	private char[] getChar;
 	private ArrayList<BrickEntity> entities1;
 	private ArrayList<CharacterEntity> entities2;
 	
@@ -62,11 +63,16 @@ public class CharacterCleanerMain extends BasicGame {
 	}
 
 	private void initFallingCharacter() throws SlickException {
+		getChar = new char[CHARACTER_COUNT];
+		for (int i=0 ; i<CHARACTER_COUNT ; i++)
+		{
+			getChar[i] = CHARACTER_LIST.charAt(randomcharacter.nextInt(N));
+		}
 		characters = new Character[CHARACTER_COUNT];
 		for (int j=0 ; j<CHARACTER_COUNT ; j++)
 		{
 			characters[j] = new Character((row.nextInt(10)*Character.CHARACTER_WIDTH)+Character.CHARACTER_WIDTH/2, 
-						Character.CHARACTER_HEIGHT/2 - 100*j, CHARACTER_LIST.charAt(randomcharacter.nextInt(N)), speed.nextInt(4)+1);
+						Character.CHARACTER_HEIGHT/2 - 100*j, getChar[j], speed.nextInt(4)+1);
 			entities2.add(characters[j]);
 		}
 	}
@@ -105,13 +111,15 @@ public class CharacterCleanerMain extends BasicGame {
 		}
 		
 		Iterator<CharacterEntity> iterator = entities2.iterator();
-	    while (iterator.hasNext()) {
-	      CharacterEntity entity2 = iterator.next();
-	      entity2.update();
-	      if (entity2.isDeletable()) {
-	        iterator.remove();
-	        isCharPress = false;
-	      }
+	    while (iterator.hasNext())
+	    {
+	    	CharacterEntity entity2 = iterator.next();
+	    	entity2.update();
+	    	if (entity2.isDeletable())
+	    	{
+	    		iterator.remove();
+	    		isCharPress = false;
+	    	}
 	    }
 		
 	}
