@@ -17,11 +17,10 @@ public class CharacterCleanerMain extends BasicGame {
 
 	public static final int GAME_WIDTH = 480;
 	public static final int GAME_HEIGHT = 640;
-	//public static final float SPEED = (float) 2;
 	public static final int BRICK_COUNT = 30;
 	public static final int CHARACTER_COUNT = 100;
 	
-	private String CHARACTER_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private String CHARACTER_LIST = "ABCDEF"; //GHIJKLMNOPQRSTUVWXYZ
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
@@ -33,7 +32,13 @@ public class CharacterCleanerMain extends BasicGame {
 	Random randomcharacter = new Random();
 	Random speed = new Random();
 	private int score = 0;
-	static boolean isCharPress = false;
+	
+	static boolean isAPress = false;
+	static boolean isBPress = false;
+	static boolean isCPress = false;
+	static boolean isDPress = false;
+	static boolean isEPress = false;
+	static boolean isFPress = false;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
@@ -115,19 +120,66 @@ public class CharacterCleanerMain extends BasicGame {
 	    {
 	    	CharacterEntity entity2 = iterator.next();
 	    	entity2.update();
-	    	if (entity2.isDeletable())
+	    	if (entity2.isDeletable() && (entity2.getName() == 'A') && (entity2.isInWindow()))
 	    	{
 	    		iterator.remove();
-	    		isCharPress = false;
+	    		isAPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'B') && (entity2.isInWindow()))
+	    	{
+	    		iterator.remove();
+	    		isBPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'C') && (entity2.isInWindow()))
+	    	{
+	    		iterator.remove();
+	    		isCPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'D') && (entity2.isInWindow()))
+	    	{
+	    		iterator.remove();
+	    		isDPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'E') && (entity2.isInWindow()))
+	    	{
+	    		iterator.remove();
+	    		isEPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'F') && (entity2.isInWindow()))
+	    	{
+	    		iterator.remove();
+	    		isFPress = false;
+	    		score++;
 	    	}
 	    }
+		
 		
 	}
 	
 	@Override
 	  public void keyPressed(int key, char c) {
-	    if (key == Input.KEY_SPACE) {
-	    	isCharPress = true;
+	    if (key == Input.KEY_A) {
+	    	isAPress = true;
+	    }
+	    if (key == Input.KEY_B) {
+	    	isBPress = true;
+	    }
+	    if (key == Input.KEY_C) {
+	    	isCPress = true;
+	    }
+	    if (key == Input.KEY_D) {
+	    	isDPress = true;
+	    }
+	    if (key == Input.KEY_E) {
+	    	isEPress = true;
+	    }
+	    if (key == Input.KEY_F) {
+	    	isFPress = true;
 	    }
 	  }
 	

@@ -33,12 +33,31 @@ public class Character implements CharacterEntity{
 		
 	}
 	
-	public boolean isPress() {
-	    return CharacterCleanerMain.isCharPress;
+	public boolean isCharPressed() {
+	    if (imgname == 'A')
+	    	return CharacterCleanerMain.isAPress;
+	    else if (imgname == 'B')
+	    	return CharacterCleanerMain.isBPress;
+	    else if (imgname == 'C')
+	    	return CharacterCleanerMain.isCPress;
+	    else if (imgname == 'D')
+	    	return CharacterCleanerMain.isDPress;
+	    else if (imgname == 'E')
+	    	return CharacterCleanerMain.isEPress;
+	    else
+	    	return CharacterCleanerMain.isFPress;
 	  }
+	
+	public char getName() {
+		return imgname;
+	}
 	 
-	  public boolean isDeletable() {
-	    return isPress();
-	  }
+	public boolean isDeletable() {
+	    return isCharPressed();
+	}
+
+	public boolean isInWindow() {
+		return (y>0 && y<CharacterCleanerMain.GAME_HEIGHT);
+	}
 
 }
