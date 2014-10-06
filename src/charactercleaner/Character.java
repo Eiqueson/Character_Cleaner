@@ -20,7 +20,7 @@ public class Character implements CharacterEntity{
 		this.y = y;
 		this.speed = speed;
 		this.imgname = imgname;
-		image = new Image("C:\\Users/Eiqueson/workspace/CharacterCleaner/object/"+imgname+".png");
+		image = new Image("res/"+imgname+".png");
 	}
 
 	public void render() {

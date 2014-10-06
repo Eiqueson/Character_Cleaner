@@ -77,7 +77,7 @@ public class CharacterCleanerMain extends BasicGame {
 		for (int j=0 ; j<CHARACTER_COUNT ; j++)
 		{
 			characters[j] = new Character((row.nextInt(10)*Character.CHARACTER_WIDTH)+Character.CHARACTER_WIDTH/2, 
-						Character.CHARACTER_HEIGHT/2 - 100*j, getChar[j], speed.nextInt(4)+1);
+						Character.CHARACTER_HEIGHT/2 - 100*j, getChar[j], speed.nextInt(3)+1);
 			entities2.add(characters[j]);
 		}
 	}

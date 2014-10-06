@@ -15,7 +15,7 @@ public class Brick implements BrickEntity{
 	public Brick(float x, float y) throws SlickException {
 	    this.x = x;
 	    this.y = y;
-	    image = new Image("C:\\Users/Eiqueson/workspace/CharacterCleaner/object/BrickD.png");
+	    image = new Image("res/BrickD.png");
 	  }
 	
 	public void render() {
