@@ -20,7 +20,7 @@ public class CharacterCleanerMain extends BasicGame {
 	public static final int BRICK_COUNT = 30;
 	public static final int CHARACTER_COUNT = 100;
 	
-	private String CHARACTER_LIST = "ABCDEF"; //GHIJKLMNOPQRSTUVWXYZ
+	private String CHARACTER_LIST = "ABCDEFGHIJ"; //KLMNOPQRSTUVWXYZ
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
@@ -39,6 +39,10 @@ public class CharacterCleanerMain extends BasicGame {
 	static boolean isDPress = false;
 	static boolean isEPress = false;
 	static boolean isFPress = false;
+	static boolean isGPress = false;
+	static boolean isHPress = false;
+	static boolean isIPress = false;
+	static boolean isJPress = false;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
@@ -115,50 +119,94 @@ public class CharacterCleanerMain extends BasicGame {
 			entity2.update();
 		}
 		
-		Iterator<CharacterEntity> iterator = entities2.iterator();
-	    while (iterator.hasNext())
+		checkCharacterPress();
+		
+		Iterator<CharacterEntity> characters = entities2.iterator();
+		Iterator<BrickEntity> bricks = entities1.iterator();
+		while (bricks.hasNext())
+		{
+			BrickEntity brick = bricks.next();
+			brick.update();
+			CharacterEntity character = characters.next();
+			character.update();
+			if ((brick.YPosition() - character.YPosition() < 24) && (brick.XPosition() == character.XPosition()))
+				{
+					bricks.remove();
+					characters.remove();
+				}
+			
+		}
+		
+		
+	}
+
+	private void checkCharacterPress() {
+		Iterator<CharacterEntity> characters = entities2.iterator();
+	    while (characters.hasNext())
 	    {
-	    	CharacterEntity entity2 = iterator.next();
+	    	CharacterEntity entity2 = characters.next();
 	    	entity2.update();
 	    	if (entity2.isDeletable() && (entity2.getName() == 'A') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isAPress = false;
 	    		score++;
 	    	}
 	    	if (entity2.isDeletable() && (entity2.getName() == 'B') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isBPress = false;
 	    		score++;
 	    	}
 	    	if (entity2.isDeletable() && (entity2.getName() == 'C') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isCPress = false;
 	    		score++;
 	    	}
 	    	if (entity2.isDeletable() && (entity2.getName() == 'D') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isDPress = false;
 	    		score++;
 	    	}
 	    	if (entity2.isDeletable() && (entity2.getName() == 'E') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isEPress = false;
 	    		score++;
 	    	}
 	    	if (entity2.isDeletable() && (entity2.getName() == 'F') && (entity2.isInWindow()))
 	    	{
-	    		iterator.remove();
+	    		characters.remove();
 	    		isFPress = false;
 	    		score++;
 	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'G') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isGPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'H') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isHPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'I') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isIPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'J') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isJPress = false;
+	    		score++;
+	    	}
 	    }
-		
-		
 	}
 	
 	@Override
@@ -180,6 +228,18 @@ public class CharacterCleanerMain extends BasicGame {
 	    }
 	    if (key == Input.KEY_F) {
 	    	isFPress = true;
+	    }
+	    if (key == Input.KEY_G) {
+	    	isGPress = true;
+	    }
+	    if (key == Input.KEY_H) {
+	    	isHPress = true;
+	    }
+	    if (key == Input.KEY_I) {
+	    	isIPress = true;
+	    }
+	    if (key == Input.KEY_J) {
+	    	isJPress = true;
 	    }
 	  }
 	

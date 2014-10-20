@@ -25,8 +25,18 @@ public class Brick implements BrickEntity{
 
 	@Override
 	public void update() {
-		
-		
+		//
+	}
+
+
+	@Override
+	public float YPosition() {
+		return y;
+	}
+
+	@Override
+	public float XPosition() {
+		return x;
 	}
 
 }

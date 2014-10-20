@@ -1,6 +1,5 @@
 package charactercleaner;
 
-import java.util.Random;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -44,8 +43,16 @@ public class Character implements CharacterEntity{
 	    	return CharacterCleanerMain.isDPress;
 	    else if (imgname == 'E')
 	    	return CharacterCleanerMain.isEPress;
-	    else
+	    else if (imgname == 'F')
 	    	return CharacterCleanerMain.isFPress;
+	    else if (imgname == 'G')
+	    	return CharacterCleanerMain.isGPress;
+	    else if (imgname == 'H')
+	    	return CharacterCleanerMain.isHPress;
+	    else if (imgname == 'I')
+	    	return CharacterCleanerMain.isIPress;
+	    else
+	    	return CharacterCleanerMain.isJPress;
 	  }
 	
 	public char getName() {
@@ -57,7 +64,17 @@ public class Character implements CharacterEntity{
 	}
 
 	public boolean isInWindow() {
-		return (y>0 && y<CharacterCleanerMain.GAME_HEIGHT);
+		return (y > 0 && y < CharacterCleanerMain.GAME_HEIGHT);
+	}
+
+	@Override
+	public float YPosition() {
+		return y;
+	}
+
+	@Override
+	public float XPosition() {
+		return x;
 	}
 
 }

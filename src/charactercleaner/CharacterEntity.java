@@ -6,4 +6,6 @@ public interface CharacterEntity {
 	boolean isDeletable();
 	char getName();
 	boolean isInWindow();
+	float YPosition();
+	float XPosition();
 }
