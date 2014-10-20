@@ -28,31 +28,38 @@ public class Character implements CharacterEntity{
 	}
 
 	public void update() {
-		y += speed;
+		if (CharacterCleanerMain.isStarted == false)
+		{
+			y += 0;
+		}
+		else
+		{
+			y += speed;
+		}
 		
 	}
 	
 	public boolean isCharPressed() {
 	    if (imgname == 'A')
-	    	return CharacterCleanerMain.isAPress;
+	    	{return CharacterCleanerMain.isAPress;}
 	    else if (imgname == 'B')
-	    	return CharacterCleanerMain.isBPress;
+	    	{return CharacterCleanerMain.isBPress;}
 	    else if (imgname == 'C')
-	    	return CharacterCleanerMain.isCPress;
+	    	{return CharacterCleanerMain.isCPress;}
 	    else if (imgname == 'D')
-	    	return CharacterCleanerMain.isDPress;
+	    	{return CharacterCleanerMain.isDPress;}
 	    else if (imgname == 'E')
-	    	return CharacterCleanerMain.isEPress;
+	    	{return CharacterCleanerMain.isEPress;}
 	    else if (imgname == 'F')
-	    	return CharacterCleanerMain.isFPress;
+	    	{return CharacterCleanerMain.isFPress;}
 	    else if (imgname == 'G')
-	    	return CharacterCleanerMain.isGPress;
+	    	{return CharacterCleanerMain.isGPress;}
 	    else if (imgname == 'H')
-	    	return CharacterCleanerMain.isHPress;
+	    	{return CharacterCleanerMain.isHPress;}
 	    else if (imgname == 'I')
-	    	return CharacterCleanerMain.isIPress;
+	    	{return CharacterCleanerMain.isIPress;}
 	    else
-	    	return CharacterCleanerMain.isJPress;
+	    	{return CharacterCleanerMain.isJPress;}
 	  }
 	
 	public char getName() {

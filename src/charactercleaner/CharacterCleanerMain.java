@@ -27,6 +27,7 @@ public class CharacterCleanerMain extends BasicGame {
 	private char[] getChar;
 	private ArrayList<BrickEntity> entities1;
 	private ArrayList<CharacterEntity> entities2;
+	protected static boolean isStarted;
 	
 	Random row = new Random();
 	Random randomcharacter = new Random();
@@ -67,6 +68,7 @@ public class CharacterCleanerMain extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		isStarted = true;
 		initBrickWall();
 		initFallingCharacter();
 	}
@@ -87,25 +89,26 @@ public class CharacterCleanerMain extends BasicGame {
 	}
 
 	private void initBrickWall() throws SlickException {
-		bricks = new Brick[BRICK_COUNT];
-		for (int i=0 ; i<BRICK_COUNT ; i++)
-		{
-			if (i<BRICK_COUNT/3)
-				{
-					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*i,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
-					entities1.add(bricks[i]);
-				}
-			else if (i<BRICK_COUNT*2/3)
-				{
-					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-10),GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
-					entities1.add(bricks[i]);
-				}
-			else
-				{
-					bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-20),GAME_HEIGHT-Brick.BRICK_HEIGHT*5/2);
-					entities1.add(bricks[i]);
-				}
-		}
+			bricks = new Brick[BRICK_COUNT]; 
+			for (int i=0 ; i<BRICK_COUNT ; i++)
+			{
+				if (i<BRICK_COUNT/3)
+					{
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*i,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
+						entities1.add(bricks[i]);
+					}
+				else if (i<BRICK_COUNT*2/3)
+					{
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-10),GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
+						entities1.add(bricks[i]);
+					}
+				else
+					{
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-20),GAME_HEIGHT-Brick.BRICK_HEIGHT*5/2);
+						entities1.add(bricks[i]);
+					}
+			}
+		
 	}
 
 	@Override
@@ -114,14 +117,16 @@ public class CharacterCleanerMain extends BasicGame {
 		{
 			entity1.update();
 		}
+		
 		for (CharacterEntity entity2 : entities2)
 		{
-			entity2.update();
+				entity2.update();
 		}
 		
 		checkCharacterPress();
+		checkGameOver();
 		
-		Iterator<CharacterEntity> characters = entities2.iterator();
+		/*Iterator<CharacterEntity> characters = entities2.iterator();
 		Iterator<BrickEntity> bricks = entities1.iterator();
 		while (bricks.hasNext())
 		{
@@ -135,9 +140,26 @@ public class CharacterCleanerMain extends BasicGame {
 					characters.remove();
 				}
 			
+		}*/
+		
+		
+	}
+
+	protected void checkGameOver() {
+		Iterator<CharacterEntity> characters = entities2.iterator();
+		while (characters.hasNext())
+		{
+			CharacterEntity character = characters.next();
+			if (isStarted == true)
+				{
+					character.update();
+				}
+			if (character.YPosition() > GAME_HEIGHT)
+				{
+					isStarted = false;
+					characters.remove();
+				}
 		}
-		
-		
 	}
 
 	private void checkCharacterPress() {
@@ -211,36 +233,42 @@ public class CharacterCleanerMain extends BasicGame {
 	
 	@Override
 	  public void keyPressed(int key, char c) {
-	    if (key == Input.KEY_A) {
-	    	isAPress = true;
+	    if (isStarted == true)
+	    {
+	    	if (key == Input.KEY_A) {
+	    		isAPress = true;
+	    	}
+	    	if (key == Input.KEY_B) {
+	    		isBPress = true;
+	    	}
+	    	if (key == Input.KEY_C) {
+	    		isCPress = true;
+	    	}
+	    	if (key == Input.KEY_D) {
+	    		isDPress = true;
+	    	}
+	    	if (key == Input.KEY_E) {
+	    		isEPress = true;
+	    	}
+	    	if (key == Input.KEY_F) {
+	    		isFPress = true;
+	    	}
+	    	if (key == Input.KEY_G) {
+	    		isGPress = true;
+	    	}
+	    	if (key == Input.KEY_H) {
+	    		isHPress = true;
+	    	}
+	    	if (key == Input.KEY_I) {
+	    		isIPress = true;
+	    	}
+	    	if (key == Input.KEY_J) {
+	    		isJPress = true;
+	    	}
 	    }
-	    if (key == Input.KEY_B) {
-	    	isBPress = true;
-	    }
-	    if (key == Input.KEY_C) {
-	    	isCPress = true;
-	    }
-	    if (key == Input.KEY_D) {
-	    	isDPress = true;
-	    }
-	    if (key == Input.KEY_E) {
-	    	isEPress = true;
-	    }
-	    if (key == Input.KEY_F) {
-	    	isFPress = true;
-	    }
-	    if (key == Input.KEY_G) {
-	    	isGPress = true;
-	    }
-	    if (key == Input.KEY_H) {
-	    	isHPress = true;
-	    }
-	    if (key == Input.KEY_I) {
-	    	isIPress = true;
-	    }
-	    if (key == Input.KEY_J) {
-	    	isJPress = true;
-	    }
+	    if (key == Input.KEY_SPACE) {
+    		isStarted = true;
+    	}
 	  }
 	
 	public static void main(String[] args) {
