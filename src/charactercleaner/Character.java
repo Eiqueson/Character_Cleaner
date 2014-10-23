@@ -68,8 +68,30 @@ public class Character implements CharacterEntity{
   	 		{return CharacterCleanerMain.isMPress;}
   	 	else if (imgname == 'N')
 	 		{return CharacterCleanerMain.isNPress;}
+  	 	else if (imgname == 'O')
+  	 		{return CharacterCleanerMain.isOPress;}
+  	 	else if (imgname == 'P')
+  	 		{return CharacterCleanerMain.isPPress;}
+  	 	else if (imgname == 'Q')
+  	 		{return CharacterCleanerMain.isQPress;}
+  	 	else if (imgname == 'R')
+  	 		{return CharacterCleanerMain.isRPress;}
+  	 	else if (imgname == 'S')
+  	 		{return CharacterCleanerMain.isSPress;}
+  	 	else if (imgname == 'T')
+  	 		{return CharacterCleanerMain.isTPress;}
+  	 	else if (imgname == 'U')
+  	 		{return CharacterCleanerMain.isUPress;}
+  	 	else if (imgname == 'V')
+  	 		{return CharacterCleanerMain.isVPress;}
+  	 	else if (imgname == 'W')
+	 		{return CharacterCleanerMain.isWPress;}
+  	 	else if (imgname == 'X')
+	 		{return CharacterCleanerMain.isXPress;}
+  	 	else if (imgname == 'Y')
+	 		{return CharacterCleanerMain.isYPress;}
 	    else
-	    	{return CharacterCleanerMain.isOPress;}
+	    	{return CharacterCleanerMain.isZPress;}
 	  }
 	
 	public char getName() {

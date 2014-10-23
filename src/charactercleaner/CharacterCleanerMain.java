@@ -17,15 +17,15 @@ public class CharacterCleanerMain extends CheckCollision {
 	public static final int GAME_WIDTH = 480;
 	public static final int GAME_HEIGHT = 640;
 	public static final int BRICK_COUNT = 3;
-	public static final int CHARACTER_COUNT = 100;
+	public static final int ROW = 10;
+	public static final int CHARACTER_COUNT = 500;
 	
-	private String CHARACTER_LIST = "ABCDEFGHIJKLMNO"; //PQRSTUVWXYZ
+	private String CHARACTER_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
 	private char[] getChar;
-	//private ArrayList<ArrayList<BrickEntity>> entities1 = new ArrayList<ArrayList<BrickEntity>>(10);
-	private ArrayList<BrickEntity>[] entities1 = new ArrayList[10];
+	private ArrayList<BrickEntity>[] entities1 = new ArrayList[ROW];
 	private ArrayList<CharacterEntity> entities2;
 	static boolean isStarted;
 	
@@ -33,6 +33,8 @@ public class CharacterCleanerMain extends CheckCollision {
 	Random randomcharacter = new Random();
 	Random speed = new Random();
 	private int score = 0;
+	float time = 60;
+	int count = 6;
 	
 	static boolean isAPress = false;
 	static boolean isBPress = false;
@@ -49,10 +51,21 @@ public class CharacterCleanerMain extends CheckCollision {
 	static boolean isMPress = false;
 	static boolean isNPress = false;
 	static boolean isOPress = false;
+	static boolean isPPress = false;
+	static boolean isQPress = false;
+	static boolean isRPress = false;
+	static boolean isSPress = false;
+	static boolean isTPress = false;
+	static boolean isUPress = false;
+	static boolean isVPress = false;
+	static boolean isWPress = false;
+	static boolean isXPress = false;
+	static boolean isYPress = false;
+	static boolean isZPress = false;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
-		for (int i=0 ; i<10 ; i++)
+		for (int i=0 ; i<ROW ; i++)
 		{
 			entities1[i] = new ArrayList<BrickEntity>();
 		}
@@ -62,7 +75,7 @@ public class CharacterCleanerMain extends CheckCollision {
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		for (int i=0 ; i<10 ; i++)
+		for (int i=0 ; i<ROW ; i++)
 		{
 			for (BrickEntity entity1 : entities1[i])
 			{
@@ -94,13 +107,13 @@ public class CharacterCleanerMain extends CheckCollision {
 		for (int j=0 ; j<CHARACTER_COUNT ; j++)
 		{
 			characters[j] = new Character((row.nextInt(10)*Character.CHARACTER_WIDTH)+Character.CHARACTER_WIDTH/2, 
-						Character.CHARACTER_HEIGHT/2 - 100*j, getChar[j], speed.nextInt(3)+1);
+			Character.CHARACTER_HEIGHT/2 - 240*j, getChar[j], speed.nextInt(2)+1);
 			entities2.add(characters[j]);
 		}
 	}
 
 	private void initBrickWall() throws SlickException {
-		for (int j=0 ; j<10 ; j++)
+		for (int j=0 ; j<ROW ; j++)
 		{
 			bricks = new Brick[BRICK_COUNT]; 
 			for (int i=0 ; i<BRICK_COUNT ; i++)
@@ -126,7 +139,7 @@ public class CharacterCleanerMain extends CheckCollision {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		for (int i=0 ; i<10 ; i++)
+		for (int i=0 ; i<ROW ; i++)
 		{
 			for (BrickEntity entity1 : entities1[i])
 			{
@@ -136,7 +149,7 @@ public class CharacterCleanerMain extends CheckCollision {
 		
 		for (CharacterEntity entity2 : entities2)
 		{
-				entity2.update();
+			entity2.update();
 		}
 		
 		checkCharacterPress();
@@ -316,6 +329,72 @@ public class CharacterCleanerMain extends CheckCollision {
 	    		isOPress = false;
 	    		score++;
 	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'P') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isPPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'Q') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isQPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'R') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isRPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'S') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isSPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'T') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isTPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'U') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isUPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'V') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isVPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'W') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isWPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'X') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isXPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'Y') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isYPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'Z') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isZPress = false;
+	    		score++;
+	    	}
 	    }
 	}
 	
@@ -367,6 +446,39 @@ public class CharacterCleanerMain extends CheckCollision {
 	    	}
 	    	if (key == Input.KEY_O) {
 	    		isOPress = true;
+	    	}
+	    	if (key == Input.KEY_P) {
+	    		isPPress = true;
+	    	}
+	    	if (key == Input.KEY_Q) {
+	    		isQPress = true;
+	    	}
+	    	if (key == Input.KEY_R) {
+	    		isRPress = true;
+	    	}
+	    	if (key == Input.KEY_S) {
+	    		isSPress = true;
+	    	}
+	    	if (key == Input.KEY_T) {
+	    		isTPress = true;
+	    	}
+	    	if (key == Input.KEY_U) {
+	    		isUPress = true;
+	    	}
+	    	if (key == Input.KEY_V) {
+	    		isVPress = true;
+	    	}
+	    	if (key == Input.KEY_W) {
+	    		isWPress = true;
+	    	}
+	    	if (key == Input.KEY_X) {
+	    		isXPress = true;
+	    	}
+	    	if (key == Input.KEY_Y) {
+	    		isYPress = true;
+	    	}
+	    	if (key == Input.KEY_Z) {
+	    		isZPress = true;
 	    	}
 	    }
 	    if (key == Input.KEY_SPACE) {
