@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -13,21 +12,22 @@ import org.newdawn.slick.SlickException;
 
 import charactercleaner.CharacterCleanerMain;
 
-public class CharacterCleanerMain extends BasicGame {
+public class CharacterCleanerMain extends CheckCollision {
 
 	public static final int GAME_WIDTH = 480;
 	public static final int GAME_HEIGHT = 640;
-	public static final int BRICK_COUNT = 30;
+	public static final int BRICK_COUNT = 3;
 	public static final int CHARACTER_COUNT = 100;
 	
-	private String CHARACTER_LIST = "ABCDEFGHIJ"; //KLMNOPQRSTUVWXYZ
+	private String CHARACTER_LIST = "ABCDEFGHIJKLMNO"; //PQRSTUVWXYZ
 	private int N = CHARACTER_LIST.length();
 	private Brick[] bricks;
 	private Character[] characters;
 	private char[] getChar;
-	private ArrayList<BrickEntity> entities1;
+	//private ArrayList<ArrayList<BrickEntity>> entities1 = new ArrayList<ArrayList<BrickEntity>>(10);
+	private ArrayList<BrickEntity>[] entities1 = new ArrayList[10];
 	private ArrayList<CharacterEntity> entities2;
-	protected static boolean isStarted;
+	static boolean isStarted;
 	
 	Random row = new Random();
 	Random randomcharacter = new Random();
@@ -44,19 +44,30 @@ public class CharacterCleanerMain extends BasicGame {
 	static boolean isHPress = false;
 	static boolean isIPress = false;
 	static boolean isJPress = false;
+	static boolean isKPress = false;
+	static boolean isLPress = false;
+	static boolean isMPress = false;
+	static boolean isNPress = false;
+	static boolean isOPress = false;
 	
 	public CharacterCleanerMain(String title) {
 		super(title);
-		entities1 = new ArrayList<BrickEntity>();
+		for (int i=0 ; i<10 ; i++)
+		{
+			entities1[i] = new ArrayList<BrickEntity>();
+		}
 		entities2 = new ArrayList<CharacterEntity>();
 		
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		for (BrickEntity entity1 : entities1)
+		for (int i=0 ; i<10 ; i++)
 		{
-			entity1.render();
+			for (BrickEntity entity1 : entities1[i])
+			{
+				entity1.render();
+			}
 		}
 		for (CharacterEntity entity2 : entities2)
 		{
@@ -89,33 +100,38 @@ public class CharacterCleanerMain extends BasicGame {
 	}
 
 	private void initBrickWall() throws SlickException {
+		for (int j=0 ; j<10 ; j++)
+		{
 			bricks = new Brick[BRICK_COUNT]; 
 			for (int i=0 ; i<BRICK_COUNT ; i++)
 			{
 				if (i<BRICK_COUNT/3)
 					{
-						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*i,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
-						entities1.add(bricks[i]);
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*j,GAME_HEIGHT-Brick.BRICK_HEIGHT*5/2);
+							entities1[j].add(bricks[i]);
 					}
 				else if (i<BRICK_COUNT*2/3)
 					{
-						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-10),GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
-						entities1.add(bricks[i]);
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*j,GAME_HEIGHT-Brick.BRICK_HEIGHT*3/2);
+							entities1[j].add(bricks[i]);
 					}
 				else
 					{
-						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*(i-20),GAME_HEIGHT-Brick.BRICK_HEIGHT*5/2);
-						entities1.add(bricks[i]);
+						bricks[i] = new Brick(Brick.BRICK_WIDTH/2+Brick.BRICK_WIDTH*j,GAME_HEIGHT-Brick.BRICK_HEIGHT/2);
+							entities1[j].add(bricks[i]);
 					}
 			}
-		
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		for (BrickEntity entity1 : entities1)
+		for (int i=0 ; i<10 ; i++)
 		{
-			entity1.update();
+			for (BrickEntity entity1 : entities1[i])
+			{
+				entity1.update();
+			}
 		}
 		
 		for (CharacterEntity entity2 : entities2)
@@ -124,25 +140,67 @@ public class CharacterCleanerMain extends BasicGame {
 		}
 		
 		checkCharacterPress();
+		checkCollision();
 		checkGameOver();
-		
-		/*Iterator<CharacterEntity> characters = entities2.iterator();
-		Iterator<BrickEntity> bricks = entities1.iterator();
-		while (bricks.hasNext())
+	}
+
+	protected void checkCollision() {
+		Iterator<CharacterEntity> characters = entities2.iterator();
+		while (characters.hasNext())
 		{
-			BrickEntity brick = bricks.next();
-			brick.update();
 			CharacterEntity character = characters.next();
 			character.update();
-			if ((brick.YPosition() - character.YPosition() < 24) && (brick.XPosition() == character.XPosition()))
-				{
-					bricks.remove();
-					characters.remove();
-				}
-			
-		}*/
-		
-		
+			if ((entities1[0].isEmpty() == false) && (entities1[0].get(0).YPosition() - character.YPosition() < 24) && (entities1[0].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[0].remove(0);
+				characters.remove();
+			}
+			if ((entities1[1].isEmpty() == false) && (entities1[1].get(0).YPosition() - character.YPosition() < 24) && (entities1[1].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[1].remove(0);
+				characters.remove();
+			}
+			if ((entities1[2].isEmpty() == false) && (entities1[2].get(0).YPosition() - character.YPosition() < 24) && (entities1[2].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[2].remove(0);
+				characters.remove();
+			}
+			if ((entities1[3].isEmpty() == false) && (entities1[3].get(0).YPosition() - character.YPosition() < 24) && (entities1[3].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[3].remove(0);
+				characters.remove();
+			}
+			if ((entities1[4].isEmpty() == false) && (entities1[4].get(0).YPosition() - character.YPosition() < 24) && (entities1[4].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[4].remove(0);
+				characters.remove();
+			}
+			if ((entities1[5].isEmpty() == false) && (entities1[5].get(0).YPosition() - character.YPosition() < 24) && (entities1[5].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[5].remove(0);
+				characters.remove();
+			}
+			if ((entities1[6].isEmpty() == false) && (entities1[6].get(0).YPosition() - character.YPosition() < 24) && (entities1[6].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[6].remove(0);
+				characters.remove();
+			}
+			if ((entities1[7].isEmpty() == false) && (entities1[7].get(0).YPosition() - character.YPosition() < 24) && (entities1[7].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[7].remove(0);
+				characters.remove();
+			}
+			if ((entities1[8].isEmpty() == false) && (entities1[8].get(0).YPosition() - character.YPosition() < 24) && (entities1[8].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[8].remove(0);
+				characters.remove();
+			}
+			if ((entities1[9].isEmpty() == false) && (entities1[9].get(0).YPosition() - character.YPosition() < 24) && (entities1[9].get(0).XPosition() == character.XPosition()))
+			{
+				entities1[9].remove(0);
+				characters.remove();
+			}
+		}
 	}
 
 	protected void checkGameOver() {
@@ -228,6 +286,36 @@ public class CharacterCleanerMain extends BasicGame {
 	    		isJPress = false;
 	    		score++;
 	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'K') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isKPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'L') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isLPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'M') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isMPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'N') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isNPress = false;
+	    		score++;
+	    	}
+	    	if (entity2.isDeletable() && (entity2.getName() == 'O') && (entity2.isInWindow()))
+	    	{
+	    		characters.remove();
+	    		isOPress = false;
+	    		score++;
+	    	}
 	    }
 	}
 	
@@ -264,6 +352,21 @@ public class CharacterCleanerMain extends BasicGame {
 	    	}
 	    	if (key == Input.KEY_J) {
 	    		isJPress = true;
+	    	}
+	    	if (key == Input.KEY_K) {
+	    		isKPress = true;
+	    	}
+	    	if (key == Input.KEY_L) {
+	    		isLPress = true;
+	    	}
+	    	if (key == Input.KEY_M) {
+	    		isMPress = true;
+	    	}
+	    	if (key == Input.KEY_N) {
+	    		isNPress = true;
+	    	}
+	    	if (key == Input.KEY_O) {
+	    		isOPress = true;
 	    	}
 	    }
 	    if (key == Input.KEY_SPACE) {
