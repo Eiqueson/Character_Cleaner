@@ -87,6 +87,10 @@ public class CharacterCleanerMain extends CheckCollision {
 			entity2.render();
 		}
 		g.drawString("Score: " + score , 400, 0);
+		if (isStarted == false)
+		{
+			g.drawString("Game Over", GAME_WIDTH/2 - 40, GAME_HEIGHT/3);
+		}
 		
 	}
 
@@ -483,6 +487,7 @@ public class CharacterCleanerMain extends CheckCollision {
 	    }
 	    if (key == Input.KEY_SPACE) {
     		isStarted = true;
+    		score = 0;
     	}
 	  }
 	
